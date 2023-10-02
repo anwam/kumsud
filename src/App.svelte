@@ -32,12 +32,12 @@
 </script>
 
 <main
-  class="container max-w-md max-h-screen mx-auto flex flex-col gap-4 bg-gray-200 p-4 rounded-xl shadow shadow-gray-500"
+  class="container flex flex-col max-w-md max-h-[100dvh] gap-4 p-4 mx-auto bg-gray-200 shadow shadow-gray-500"
 >
-  <h1 class="text-lg md:text-xl lg:text-2xl text-center font-bold">KUM SUD</h1>
-  <p>คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด กดเลย</p>
+  <h1 class="text-lg font-bold text-center md:text-xl lg:text-2xl">KUM SUD</h1>
+  <p class="text-xs text-center">คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด กดเลย</p>
   <div
-    class="overflow-auto grid grid-flow-row grid-cols-12 gap-3 bg-gray-100 rounded-xl p-3 shadow shadow-gray-400"
+    class="grid grid-flow-row grid-cols-12 gap-3 p-3 overflow-auto bg-gray-100 shadow rounded-xl shadow-gray-400"
   >
     {#each comparators as c, index}
       <div
@@ -46,9 +46,14 @@
         }`}
       >
         <div class="flex flex-row justify-between">
-          <p>{`สินค้าชิ้นที่ ${index + 1}`}</p>
+          <p>
+            {`สินค้าชิ้นที่ ${index + 1}`}
+            {#if isMinPPU(c.id)}
+              <span>คุ้มกว่า</span>
+            {/if}
+          </p>
           <button
-            class="w-fit bg-red-100 text-red-600 p-2 rounded-full hover:ring-2 hover:ring-red-200 transition-all duration-300"
+            class="p-2 text-red-600 transition-all duration-300 bg-red-100 rounded-full w-fit hover:ring-2 hover:ring-red-200"
             on:click={deleteComparator(c.id)}
           >
             <Minus size={12} />
@@ -59,7 +64,7 @@
     {/each}
   </div>
   <button
-    class="w-fit self-end bg-blue-500 text-blue-50 p-2 rounded-full hover:ring-2 hover:ring-blue-700 transition-all duration-300"
+    class="self-end p-2 transition-all duration-300 bg-blue-500 rounded-full w-fit text-blue-50 hover:ring-2 hover:ring-blue-700"
     on:click={addComparator}
   >
     <Plus size={18} />
