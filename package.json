@@ -6,10 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pwa": "pwa-assets-generator --preset minimal public/vite.svg"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^2.4.2",
+    "@vite-pwa/assets-generator": "^0.0.10",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31",
     "svelte": "^4.0.5",
