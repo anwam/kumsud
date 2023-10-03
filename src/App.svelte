@@ -13,7 +13,10 @@
     comparators = [
       ...comparators,
       {
-        id: comparators[comparators.length - 1].id + 1,
+        id:
+          comparators.length > 0
+            ? comparators[comparators.length - 1].id + 1
+            : 1,
         ppu: 0,
       },
     ];
@@ -79,34 +82,8 @@
     id="comparators"
     class="grid grid-flow-row grid-cols-12 gap-3 p-1 overflow-auto lg:gap-4 scroll-smooth snap-y touch-auto"
   >
-    {#each comparators as c, index}
-      <div
-        transition:slide={{
-          duration: 200,
-          delay: 50,
-          axis: "y",
-        }}
-        class={`snap-start scroll-my-2 transition-all duration-300 col-span-12 md:col-span-6 lg:col-span-4 bg-gray-50 shadow p-2 md:p-4 gap-2 lg:gap-4 flex flex-col rounded-lg ${
-          isMinPPU(c.id) ? "ring-2 ring-lime-200  to-lime-50" : ""
-        }`}
-      >
-        <div class="flex flex-row justify-between">
-          <p>
-            {`# ${c.id}`}
-            {#if isMinPPU(c.id)}
-              <span>คุ้มกว่า</span>
-            {/if}
-          </p>
-          <button
-            tabindex="-1"
-            class="p-2 text-red-600 transition-all duration-300 bg-red-100 rounded-full w-fit hover:ring-2 hover:ring-red-200"
-            on:click={deleteComparator(c.id)}
-          >
-            <Minus size={12} />
-          </button>
-        </div>
-        <Comparator id={c.id} bind:product={c} />
-      </div>
+    {#each comparators as c (c.id)}
+      <Comparator bind:product={c} handleRemove={deleteComparator} {isMinPPU} />
     {/each}
   </div>
 
