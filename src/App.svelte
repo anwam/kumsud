@@ -32,7 +32,7 @@
 </script>
 
 <main
-  class="container relative flex flex-col max-w-md lg:max-w-2xl max-h-[100dvh] gap-2 p-2 md:gap-3 md:p-3 mx-auto"
+  class="container relative flex flex-col max-w-md lg:max-w-3xl max-h-[100dvh] gap-2 p-2 md:gap-3 md:p-3 mx-auto"
 >
   <div class="py-1 mx-1 text-center bg-gray-100 rounded-lg shadow md:py-3">
     <h1
@@ -40,7 +40,7 @@
     >
       KUM SUD - คุ้มสุด
     </h1>
-    <p class="text-xs">คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด รู้เลย</p>
+    <p class="mt-1 text-sm">คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด รู้เลย</p>
   </div>
 
   <div
@@ -72,7 +72,7 @@
       >
         <div class="flex flex-row justify-between">
           <p>
-            {`สินค้าชิ้นที่ ${index + 1}`}
+            {`# ${index + 1}`}
             {#if isMinPPU(c.id)}
               <span>คุ้มกว่า</span>
             {/if}

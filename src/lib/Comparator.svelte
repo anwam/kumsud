@@ -9,11 +9,11 @@
   $: product = { ...product, ppu };
 </script>
 
-<form class="grid grid-flow-row grid-cols-4 gap-2 text-xs">
+<form class="grid grid-flow-row grid-cols-4 gap-2 text-sm">
   <div class="col-span-2">
-    <label for={`price-${id}`}>ราคา</label>
+    <label class="text-xs text-gray-600" for={`price-${id}`}>ราคา</label>
     <input
-      class="w-full p-1 border border-blue-200 rounded"
+      class="w-full px-2 py-1 text-base border border-blue-200 rounded"
       on:focus={(e) => e.currentTarget.select()}
       pattern="\d*"
       type="number"
@@ -23,9 +23,9 @@
     />
   </div>
   <div class="col-span-1">
-    <label for={`vol-${id}`}>ปริมาณ</label>
+    <label class="text-xs text-gray-600" for={`vol-${id}`}>ปริมาตร</label>
     <input
-      class="w-full p-1 border border-red-200 rounded text-end"
+      class="w-full px-2 py-1 text-base border border-red-200 rounded text-end"
       on:focus={(e) => e.currentTarget.select()}
       pattern="\d*"
       type="number"
@@ -35,9 +35,9 @@
     />
   </div>
   <div class="col-span-1">
-    <label for={`quant-${id}`}>จำนวน</label>
+    <label class="text-xs text-gray-600" for={`quant-${id}`}>จำนวน</label>
     <input
-      class="w-full p-1 border rounded text-end border-lime-400"
+      class="w-full px-2 py-1 text-base border rounded text-end border-lime-400"
       on:focus={(e) => e.currentTarget.select()}
       pattern="\d*"
       type="number"
@@ -46,10 +46,13 @@
       bind:value={quantity}
     />
   </div>
-  <p class="col-span-4 text-lg font-bold" id={`ppu-${id}`}>
-    {new Intl.NumberFormat("th-TH", {
-      style: "currency",
-      currency: "THB",
-    }).format(ppu) + "/หน่วย"}
+  <p class="col-span-4 text-lg" id={`ppu-${id}`}>
+    <strong>
+      {new Intl.NumberFormat("th-TH", {
+        style: "currency",
+        currency: "THB",
+      }).format(ppu)}
+    </strong>
+    <span class="text-sm text-gray-600"> / หน่วย</span>
   </p>
 </form>
