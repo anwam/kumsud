@@ -15,7 +15,7 @@ export default defineConfig({
       ],
       manifest: {
         name: "Kum Sud - คุ้มสุด",
-        short_name: "Kumsud",
+        short_name: "คุ้มสุด",
         description: "หาราคาต่อหน่วยที่ถูกที่สุด",
         theme_color: "#ffffff",
         icons: [

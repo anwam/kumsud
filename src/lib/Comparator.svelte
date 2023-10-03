@@ -8,7 +8,7 @@
   $: product = { ...product, ppu };
 </script>
 
-<form class="text-sm grid grid-flow-row grid-cols-2 gap-2">
+<form class="grid grid-flow-row grid-cols-2 gap-2 text-sm">
   <div class="col-span-1">
     <label for={`price-${id}`}>ราคา</label>
     <input
@@ -33,7 +33,7 @@
       bind:value={vol}
     />
   </div>
-  <p class="text-lg font-bold col-span-2" id={`ppu-${id}`}>
+  <p class="col-span-2 text-lg font-bold" id={`ppu-${id}`}>
     {new Intl.NumberFormat("th-TH", {
       style: "currency",
       currency: "THB",
