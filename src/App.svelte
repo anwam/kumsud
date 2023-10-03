@@ -44,17 +44,22 @@
   </div>
 
   <div
-    class="fixed flex flex-row text-sm text-center text-gray-50 top-1 right-1"
+    class="fixed flex flex-row text-sm text-center gap-x-1 text-gray-50 top-1 right-1"
   >
     <a
       href="https://github.com/anwam"
-      class="box-border flex flex-row gap-1 p-1 text-center text-gray-600 bg-gray-100 rounded-full shadow place-self-center place-items-center w-fit"
+      class="box-border flex flex-row gap-1 py-1 pl-1 pr-2 text-center text-gray-600 bg-gray-100 rounded-full shadow place-self-center place-items-center w-fit"
     >
       <span class="block p-1 bg-gray-700 rounded-full w-fit h-fit text-gray-50">
         <Github size={12} />
       </span>
       anwam
     </a>
+    <p
+      class="box-border px-2 py-1 text-gray-600 bg-gray-100 rounded-full shadow"
+    >
+      {__APP_VERSION__}
+    </p>
   </div>
   <div
     class="grid grid-flow-row grid-cols-12 gap-3 p-1 overflow-auto lg:gap-4 scroll-smooth snap-y touch-auto"
