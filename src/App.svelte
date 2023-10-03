@@ -35,13 +35,15 @@
   class="container flex flex-col max-w-md max-h-[100dvh] gap-4 p-4 mx-auto bg-gray-200 shadow shadow-gray-500"
 >
   <h1 class="text-lg font-bold text-center md:text-xl lg:text-2xl">KUM SUD</h1>
-  <p class="text-xs text-center">คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด กดเลย</p>
+  <p class="px-4 py-2 text-xs text-center bg-gray-100 rounded-lg shadow">
+    คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด กดเลย
+  </p>
   <div
-    class="grid grid-flow-row grid-cols-12 gap-3 p-3 overflow-auto bg-gray-100 shadow rounded-xl shadow-gray-400"
+    class="grid grid-flow-row grid-cols-12 gap-3 py-3 overflow-y-auto scroll-smooth snap-y touch-auto"
   >
     {#each comparators as c, index}
       <div
-        class={`transition-all duration-300 col-span-12 md:col-span-6 bg-gray-50 shadow shadow-gray-300 p-2 gap-2 flex flex-col rounded-lg ${
+        class={`snap-start scroll-my-2 transition-all duration-300 col-span-12 md:col-span-6 bg-gray-50 shadow p-2 gap-2 flex flex-col rounded-lg ${
           isMinPPU(c.id) ? "ring-2 ring-blue-200" : ""
         }`}
       >

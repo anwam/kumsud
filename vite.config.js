@@ -7,8 +7,12 @@ export default defineConfig({
   plugins: [
     svelte(),
     VitePWA({
-      registerType: "autoUpdate",
-      injectRegister: "auto",
+      includeAssets: [
+        "favicon.ico",
+        "apple-touch-icon-180x180.png",
+        "maskable-icon-512x512.png",
+        "robots.txt",
+      ],
       manifest: {
         name: "Kum Sud - คุ้มสุด",
         short_name: "Kumsud",
