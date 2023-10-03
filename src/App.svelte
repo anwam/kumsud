@@ -1,16 +1,19 @@
 <script>
-  import Comparator from "./lib/Comparator.svelte";
+  // import html2canvas from "html2canvas";
   import { Plus, Minus, Github } from "lucide-svelte";
+  import { slide } from "svelte/transition";
+  import Comparator from "./lib/Comparator.svelte";
 
   let comparators = [
     { id: 1, ppu: 0 },
     { id: 2, ppu: 0 },
   ];
+
   const addComparator = () => {
     comparators = [
       ...comparators,
       {
-        id: comparators.length + 1,
+        id: comparators[comparators.length - 1].id + 1,
         ppu: 0,
       },
     ];
@@ -25,6 +28,16 @@
   const isMinPPU = (/** @type {number} */ id) => {
     return id === maxPPU.id && maxPPU.ppu > 0;
   };
+
+  // const download = () => {
+  //   const el = document.getElementById("comparators");
+  //   html2canvas(el).then((canvas) => {
+  //     const link = document.createElement("a");
+  //     link.download = "kum-sud.png";
+  //     link.href = canvas.toDataURL("png");
+  //     link.click();
+  //   });
+  // };
 
   $: maxPPU = comparators.find(
     (c) => c.ppu === Math.min(...comparators.map((c) => c.ppu))
@@ -55,6 +68,7 @@
       </span>
       anwam
     </a>
+    <!-- svelte-ignore missing-declaration -->
     <p
       class="box-border px-2 py-1 text-gray-600 bg-gray-100 rounded-full shadow"
     >
@@ -62,17 +76,23 @@
     </p>
   </div>
   <div
+    id="comparators"
     class="grid grid-flow-row grid-cols-12 gap-3 p-1 overflow-auto lg:gap-4 scroll-smooth snap-y touch-auto"
   >
     {#each comparators as c, index}
       <div
+        transition:slide={{
+          duration: 200,
+          delay: 50,
+          axis: "y",
+        }}
         class={`snap-start scroll-my-2 transition-all duration-300 col-span-12 md:col-span-6 lg:col-span-4 bg-gray-50 shadow p-2 md:p-4 gap-2 lg:gap-4 flex flex-col rounded-lg ${
           isMinPPU(c.id) ? "ring-2 ring-lime-200  to-lime-50" : ""
         }`}
       >
         <div class="flex flex-row justify-between">
           <p>
-            {`# ${index + 1}`}
+            {`# ${c.id}`}
             {#if isMinPPU(c.id)}
               <span>คุ้มกว่า</span>
             {/if}
@@ -89,10 +109,19 @@
       </div>
     {/each}
   </div>
+
+  <!-- <div class="flex flex-row self-end gap-x-2"> -->
+  <!-- <button
+      on:click={download}
+      class="p-2 transition-all duration-300 bg-blue-500 rounded-full w-fit text-blue-50 hover:ring-2 hover:ring-blue-700"
+    >
+      <Download size={18} />
+    </button> -->
   <button
     class="self-end p-2 transition-all duration-300 bg-blue-500 rounded-full w-fit text-blue-50 hover:ring-2 hover:ring-blue-700"
     on:click={addComparator}
   >
     <Plus size={18} />
   </button>
+  <!-- </div> -->
 </main>

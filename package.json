@@ -20,6 +20,7 @@
     "vite-plugin-pwa": "^0.16.5"
   },
   "dependencies": {
+    "html2canvas": "^1.4.1",
     "lucide-svelte": "^0.279.0"
   }
 }

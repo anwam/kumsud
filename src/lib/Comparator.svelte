@@ -10,10 +10,10 @@
 </script>
 
 <form class="grid grid-flow-row grid-cols-4 gap-2 text-sm">
-  <div class="col-span-2">
+  <div class="col-span-2 md:col-span-4">
     <label class="text-xs text-gray-600" for={`price-${id}`}>ราคา</label>
     <input
-      class="w-full px-2 py-1 text-base border border-blue-200 rounded"
+      class="w-full p-1 text-base border border-blue-200 rounded"
       on:focus={(e) => e.currentTarget.select()}
       pattern="\d*"
       type="number"
@@ -22,10 +22,10 @@
       bind:value={price}
     />
   </div>
-  <div class="col-span-1">
+  <div class="col-span-1 md:col-span-2">
     <label class="text-xs text-gray-600" for={`vol-${id}`}>ปริมาตร</label>
     <input
-      class="w-full px-2 py-1 text-base border border-red-200 rounded text-end"
+      class="w-full p-1 text-base border border-red-200 rounded text-end"
       on:focus={(e) => e.currentTarget.select()}
       pattern="\d*"
       type="number"
@@ -34,10 +34,10 @@
       bind:value={vol}
     />
   </div>
-  <div class="col-span-1">
+  <div class="col-span-1 md:col-span-2">
     <label class="text-xs text-gray-600" for={`quant-${id}`}>จำนวน</label>
     <input
-      class="w-full px-2 py-1 text-base border rounded text-end border-lime-400"
+      class="w-full p-1 text-base border rounded text-end border-lime-400"
       on:focus={(e) => e.currentTarget.select()}
       pattern="\d*"
       type="number"
