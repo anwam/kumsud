@@ -32,18 +32,19 @@
 </script>
 
 <main
-  class="container relative flex flex-col max-w-md max-h-[100dvh] gap-4 p-4 mx-auto"
+  class="container relative flex flex-col max-w-md lg:max-w-2xl max-h-[100dvh] gap-2 p-2 md:gap-3 md:p-3 mx-auto"
 >
-  <h1
-    class="font-extrabold text-center text-transparent text- title md:text-xl lg:text-3xl bg-gradient-to-b from-red-700 to-pink-400 bg-clip-text"
-  >
-    KUM SUD - คุ้มสุด
-  </h1>
-  <p class="py-1 mx-1 text-xs text-center bg-gray-100 rounded-lg shadow">
-    คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด รู้เลย
-  </p>
+  <div class="py-1 mx-1 text-center bg-gray-100 rounded-lg shadow md:py-3">
+    <h1
+      class="text-xl font-extrabold text-center text-transparent title md:text-2xl lg:text-3xl bg-gradient-to-b from-red-700 to-pink-400 bg-clip-text"
+    >
+      KUM SUD - คุ้มสุด
+    </h1>
+    <p class="text-xs">คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด รู้เลย</p>
+  </div>
+
   <div
-    class="fixed flex flex-row p-1 text-sm text-center text-gray-50 top-1 right-1"
+    class="fixed flex flex-row text-sm text-center text-gray-50 top-1 right-1"
   >
     <a
       href="https://github.com/anwam"
@@ -56,12 +57,12 @@
     </a>
   </div>
   <div
-    class="grid grid-flow-row grid-cols-12 gap-3 px-1 py-3 overflow-auto scroll-smooth snap-y touch-auto"
+    class="grid grid-flow-row grid-cols-12 gap-3 p-1 overflow-auto lg:gap-4 scroll-smooth snap-y touch-auto"
   >
     {#each comparators as c, index}
       <div
-        class={`snap-start scroll-my-2 transition-all duration-300 col-span-12 md:col-span-6 bg-gray-50 shadow p-2 md:p-4 gap-2 flex flex-col rounded-lg ${
-          isMinPPU(c.id) ? "ring-2 ring-green-200  to-green-50" : ""
+        class={`snap-start scroll-my-2 transition-all duration-300 col-span-12 md:col-span-6 lg:col-span-4 bg-gray-50 shadow p-2 md:p-4 gap-2 lg:gap-4 flex flex-col rounded-lg ${
+          isMinPPU(c.id) ? "ring-2 ring-lime-200  to-lime-50" : ""
         }`}
       >
         <div class="flex flex-row justify-between">
@@ -72,6 +73,7 @@
             {/if}
           </p>
           <button
+            tabindex="-1"
             class="p-2 text-red-600 transition-all duration-300 bg-red-100 rounded-full w-fit hover:ring-2 hover:ring-red-200"
             on:click={deleteComparator(c.id)}
           >
