@@ -5,8 +5,8 @@
   import Comparator from "./lib/Comparator.svelte";
 
   let comparators = [
-    { id: 1, ppu: 0 },
-    { id: 2, ppu: 0 },
+    { id: 1, ppu: 0, title: "" },
+    { id: 2, ppu: 0, title: "" },
   ];
 
   const addComparator = () => {
@@ -18,6 +18,7 @@
             ? comparators[comparators.length - 1].id + 1
             : 1,
         ppu: 0,
+        title: "",
       },
     ];
   };
@@ -56,7 +57,7 @@
     >
       KUM SUD - คุ้มสุด
     </h1>
-    <p class="mt-1 text-sm">คำนวนราคาสินค้าต่อหน่วย อันไหนคุ้มสุด รู้เลย</p>
+    <p class="mt-1 text-sm">คำนวณราคาสินค้าต่อหน่วย อันไหนคุ้มสุด รู้เลย</p>
   </div>
 
   <div
