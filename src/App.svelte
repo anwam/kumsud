@@ -49,39 +49,19 @@
 </script>
 
 <main
-  class="container relative flex flex-col max-w-md lg:max-w-3xl max-h-[100dvh] gap-2 p-2 md:gap-3 md:p-3 mx-auto"
+  class="container relative flex flex-col max-w-md lg:max-w-3xl max-h-[100dvh] gap-2 p-2 lg:gap-3 lg:p-3 mx-auto"
 >
-  <div class="py-1 mx-1 text-center bg-gray-100 rounded-lg shadow md:py-3">
+  <div class="py-1 mx-1 text-center bg-gray-100 rounded-lg shadow lg:py-3">
     <h1
-      class="text-xl font-extrabold text-center text-transparent title md:text-2xl lg:text-3xl bg-gradient-to-b from-red-700 to-pink-400 bg-clip-text"
+      class="text-xl font-extrabold text-center text-transparent title lg:text-3xl bg-gradient-to-b from-red-700 to-pink-400 bg-clip-text"
     >
       KUM SUD - คุ้มสุด
     </h1>
     <p class="mt-1 text-sm">คำนวณราคาสินค้าต่อหน่วย อันไหนคุ้มสุด รู้เลย</p>
   </div>
-
-  <div
-    class="fixed flex flex-row text-sm text-center gap-x-1 text-gray-50 top-1 right-1"
-  >
-    <a
-      href="https://github.com/anwam"
-      class="box-border flex flex-row gap-1 py-1 pl-1 pr-2 text-center text-gray-600 bg-gray-100 rounded-full shadow place-self-center place-items-center w-fit"
-    >
-      <span class="block p-1 bg-gray-700 rounded-full w-fit h-fit text-gray-50">
-        <Github size={12} />
-      </span>
-      anwam
-    </a>
-    <!-- svelte-ignore missing-declaration -->
-    <p
-      class="box-border px-2 py-1 text-gray-600 bg-gray-100 rounded-full shadow"
-    >
-      {__APP_VERSION__}
-    </p>
-  </div>
   <div
     id="comparators"
-    class="grid grid-flow-row grid-cols-12 gap-3 p-1 overflow-auto lg:gap-4 scroll-smooth snap-y touch-auto"
+    class="grid grid-flow-row grid-cols-12 gap-3 p-1 overflow-auto lg:gap-4 snap-y snap-mandatory touch-auto"
   >
     {#each comparators as c (c.id)}
       <Comparator bind:product={c} handleRemove={deleteComparator} {isMinPPU} />
@@ -95,11 +75,32 @@
     >
       <Download size={18} />
     </button> -->
-  <button
-    class="self-end p-2 transition-all duration-300 bg-blue-500 rounded-full w-fit text-blue-50 hover:ring-2 hover:ring-blue-700"
-    on:click={addComparator}
+  <div
+    class="flex flex-row col-span-12 text-sm text-center place-items-center gap-x-1 text-gray-50"
   >
-    <Plus size={18} />
-  </button>
+    <a
+      href="https://github.com/anwam"
+      class="box-border flex flex-row gap-1 py-1 pl-1 pr-2 text-center text-gray-600 bg-gray-100 rounded-full shadow place-self-center place-items-center w-fit"
+    >
+      <span class="block p-1 bg-gray-700 rounded-full w-fit h-fit text-gray-50">
+        <Github size={12} />
+      </span>
+      <u>anwam</u> built with ❤️ and
+      <a class="text-orange-600" href="https://svelte.dev/">svelte.dev</a>
+    </a>
+    <!-- svelte-ignore missing-declaration -->
+    <p
+      class="box-border px-2 py-1 text-gray-600 bg-gray-100 rounded-full shadow"
+    >
+      v.{__APP_VERSION__}
+    </p>
+
+    <button
+      class="self-end p-2 ml-auto transition-all duration-300 bg-blue-500 rounded-full w-fit text-blue-50 hover:ring-2 hover:ring-blue-700"
+      on:click={addComparator}
+    >
+      <Plus size={18} />
+    </button>
+  </div>
   <!-- </div> -->
 </main>

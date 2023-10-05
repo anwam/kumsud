@@ -21,11 +21,10 @@
 
 <div
   transition:slide={{
-    duration: 250,
-    delay: 50,
+    duration: 300,
     axis: "y",
   }}
-  class={`relative z-0 snap-start scroll-my-2 transition-all duration-300 col-span-12 md:col-span-6 bg-gray-50 border border-gray-400 shadow p-2 md:p-4 gap-2 lg:gap-4 flex flex-col rounded-lg ${
+  class={`snap-start snap-always scroll-my-1 transition-all duration-300 col-span-12 lg:col-span-6 bg-gray-50 border border-gray-400 shadow p-2 lg:p-4 gap-2 lg:gap-4 flex flex-col rounded-lg ${
     isMinPPU(product.id) ? "ring-2 ring-lime-200  to-lime-50" : ""
   }`}
 >
@@ -94,7 +93,7 @@
         bind:value={price}
         on:focus={(e) => e.currentTarget.select()}
       />
-      <span class="absolute text-[10px] text-gray-400 left-1 top-full pt-1">
+      <span class="absolute text-[10px] text-gray-400 top-full pt-1">
         {new Intl.NumberFormat("th-TH", {
           style: "currency",
           currency: "THB",
