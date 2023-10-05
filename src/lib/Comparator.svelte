@@ -5,12 +5,17 @@
   let price = 0;
   let vol = 1;
   let quantity = 1;
+  let showQuan = false;
   export let product;
   export let handleRemove;
   export let isMinPPU;
 
-  $: ppu = price / vol / quantity;
+  $: ppu = price / (showQuan ? vol * quantity : vol);
   $: product = { ...product, ppu };
+
+  const onToggleShowQuan = (e) => {
+    console.log({ showQuan });
+  };
 </script>
 
 <div
@@ -23,8 +28,8 @@
     isMinPPU(product.id) ? "ring-2 ring-lime-200  to-lime-50" : ""
   }`}
 >
-  <div class="flex flex-row justify-between">
-    <p>
+  <div class="flex flex-row flex-wrap justify-between gap-y-2">
+    <p class="flex flex-row place-items-center gap-x-2">
       {`# ${product.id}`}
       {#if isMinPPU(product.id)}
         <span>คุ้มกว่า</span>
@@ -37,12 +42,29 @@
     >
       <Minus size={12} />
     </button>
+
+    <label
+      class="relative flex items-center flex-grow flex-shrink-0 w-full cursor-pointer"
+    >
+      <input
+        type="checkbox"
+        class="sr-only peer"
+        name="show-quan"
+        id="show-quan"
+        bind:checked={showQuan}
+        on:change={onToggleShowQuan}
+      />
+      <div
+        class="w-8 h-5 bg-gray-200 rounded-full peer peer-focus:ring-2 peer-focus:ring-green-500 dark:peer-focus:ring-green-400 dark:bg-gray-400 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all dark:border-gray-600 peer-checked:bg-green-600"
+      />
+      <span class="ml-1 text-sm font-medium text-gray-400">จำนวน</span>
+    </label>
   </div>
   <form class="grid grid-flow-row grid-cols-4 gap-2 text-sm">
-    <div class="col-span-2 md:col-span-4">
+    <div class="relative col-span-2 md:col-span-4">
       <label class="text-xs text-gray-600" for={`price-${product.id}`}
-        >ราคา</label
-      >
+        >ราคา (สุทธิ)
+      </label>
       <input
         class="w-full p-1 text-base border border-blue-200 rounded"
         on:focus={(e) => e.currentTarget.select()}
@@ -52,6 +74,11 @@
         id={`price-${product.id}`}
         bind:value={price}
       />
+      {#if showQuan}
+        <span class="absolute text-gray-300 right-2 bottom-2">
+          {price / quantity} / ชิ้น
+        </span>
+      {/if}
     </div>
     <div class="col-span-1 md:col-span-2">
       <label class="text-xs text-gray-600" for={`vol-${product.id}`}
@@ -67,20 +94,22 @@
         bind:value={vol}
       />
     </div>
-    <div class="col-span-1 md:col-span-2">
-      <label class="text-xs text-gray-600" for={`quant-${product.id}`}
-        >จำนวน</label
-      >
-      <input
-        class="w-full p-1 text-base border rounded text-end border-lime-400"
-        on:focus={(e) => e.currentTarget.select()}
-        pattern="\d*"
-        type="number"
-        name="quant"
-        id={`quant-${product.id}`}
-        bind:value={quantity}
-      />
-    </div>
+    {#if showQuan}
+      <div class="col-span-1 md:col-span-2">
+        <label class="text-xs text-gray-600" for={`quant-${product.id}`}
+          >จำนวน</label
+        >
+        <input
+          class="w-full p-1 text-base border rounded text-end border-lime-400"
+          on:focus={(e) => e.currentTarget.select()}
+          pattern="\d*"
+          type="number"
+          name="quant"
+          id={`quant-${product.id}`}
+          bind:value={quantity}
+        />
+      </div>
+    {/if}
     <p class="col-span-4 text-lg" id={`ppu-${product.id}`}>
       <strong>
         {new Intl.NumberFormat("th-TH", {
