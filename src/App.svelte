@@ -44,16 +44,16 @@
   // };
 
   $: maxPPU = comparators.find(
-    (c) => c.ppu === Math.min(...comparators.map((c) => c.ppu))
+    (c) => c.ppu === Math.min(...comparators.map((c) => c.ppu)),
   );
 </script>
 
 <main
-  class="container relative flex flex-col max-w-md lg:max-w-3xl max-h-[100dvh] gap-2 p-2 lg:gap-3 lg:p-3 mx-auto"
+  class="container relative mx-auto flex max-h-[100dvh] max-w-md flex-col gap-2 p-2 lg:max-w-3xl lg:gap-3 lg:p-3"
 >
-  <div class="py-1 mx-1 text-center bg-gray-100 rounded-lg shadow lg:py-3">
+  <div class="mx-1 rounded-xl bg-gray-100 py-1 text-center shadow lg:py-3">
     <h1
-      class="text-xl font-extrabold text-center text-transparent title lg:text-3xl bg-gradient-to-b from-red-700 to-pink-400 bg-clip-text"
+      class="title bg-gradient-to-b from-red-700 to-pink-400 bg-clip-text text-center text-xl font-extrabold text-transparent lg:text-3xl"
     >
       KUM SUD - คุ้มสุด
     </h1>
@@ -61,7 +61,7 @@
   </div>
   <div
     id="comparators"
-    class="grid grid-flow-row grid-cols-12 gap-3 p-1 overflow-auto lg:gap-4 snap-y snap-mandatory touch-auto"
+    class="grid touch-auto snap-y snap-mandatory grid-flow-row grid-cols-12 gap-3 overflow-x-auto p-1 lg:gap-4"
   >
     {#each comparators as c (c.id)}
       <Comparator bind:product={c} handleRemove={deleteComparator} {isMinPPU} />
@@ -71,18 +71,18 @@
   <!-- <div class="flex flex-row self-end gap-x-2"> -->
   <!-- <button
       on:click={download}
-      class="p-2 transition-all duration-300 bg-blue-500 rounded-full w-fit text-blue-50 hover:ring-2 hover:ring-blue-700"
+      class="p-2 bg-blue-500 rounded-full transition-all duration-300 w-fit text-blue-50 hover:ring-2 hover:ring-blue-700"
     >
       <Download size={18} />
     </button> -->
   <div
-    class="flex flex-row col-span-12 text-sm text-center place-items-center gap-x-1 text-gray-50"
+    class="col-span-12 flex flex-row place-items-center gap-x-1 text-center text-sm text-gray-50"
   >
     <a
       href="https://github.com/anwam"
-      class="box-border flex flex-row gap-1 py-1 pl-1 pr-2 text-center text-gray-600 bg-gray-100 rounded-full shadow place-self-center place-items-center w-fit"
+      class="box-border flex w-fit flex-row place-items-center gap-1 place-self-center rounded-full bg-gray-100 py-1 pl-1 pr-2 text-center text-gray-600 shadow"
     >
-      <span class="block p-1 bg-gray-700 rounded-full w-fit h-fit text-gray-50">
+      <span class="block h-fit w-fit rounded-full bg-gray-700 p-1 text-gray-50">
         <Github size={12} />
       </span>
       <u>anwam</u> built with ❤️ and
@@ -90,13 +90,13 @@
     </a>
     <!-- svelte-ignore missing-declaration -->
     <p
-      class="box-border px-2 py-1 text-gray-600 bg-gray-100 rounded-full shadow"
+      class="box-border rounded-full bg-gray-100 px-2 py-1 text-gray-600 shadow"
     >
       v.{__APP_VERSION__}
     </p>
 
     <button
-      class="self-end p-2 ml-auto transition-all duration-300 bg-blue-500 rounded-full w-fit text-blue-50 hover:ring-2 hover:ring-blue-700"
+      class="ml-auto w-fit self-end rounded-full bg-blue-500 p-2 text-blue-50 transition-all duration-300 hover:ring-2 hover:ring-blue-700"
       on:click={addComparator}
     >
       <Plus size={18} />
