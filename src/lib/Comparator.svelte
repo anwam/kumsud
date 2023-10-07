@@ -1,6 +1,14 @@
 <script>
-  import { Minus, Pen, Plus } from "lucide-svelte";
-  import { slide } from "svelte/transition";
+  import {
+    Check,
+    Eraser,
+    Minus,
+    Pen,
+    Plus,
+    Trash,
+    Trash2,
+  } from "lucide-svelte";
+  import { crossfade, fly, slide } from "svelte/transition";
 
   let price = 0;
   let vol = 1;
@@ -33,11 +41,8 @@
 </script>
 
 <div
-  transition:slide={{
-    duration: 300,
-    axis: "y",
-  }}
-  class={`col-span-12 flex snap-start snap-always scroll-my-1 flex-col gap-2 rounded-xl border border-gray-400 bg-gray-50 p-2 shadow transition-all duration-300 lg:col-span-6 lg:gap-4 lg:p-4 ${
+  transition:fly={{ y: -100, opacity: 0 }}
+  class={`col-span-12 flex min-h-0 snap-start snap-always scroll-my-1 flex-col gap-2 rounded-xl  bg-gray-50 p-2 shadow transition-all duration-300 lg:col-span-6 lg:gap-4 lg:p-4 ${
     isMinPPU(product.id) ? "to-lime-50 ring-2  ring-lime-200" : ""
   }`}
 >
@@ -80,34 +85,35 @@
       {/if}
     </p>
 
-    <div class="flex flex-row gap-x-2">
+    <div class="flex flex-row">
       <button
         aria-label="ปุ่มแก้ไขชื่อสินค้า"
         tabindex="-1"
-        class="w-fit rounded-full bg-blue-100 p-2 text-blue-600 transition-all duration-300 hover:ring-2 hover:ring-blue-200"
+        class="w-fit rounded-l-lg border-y border-l border-blue-300 bg-blue-100 p-2 text-blue-600 transition-all duration-300 hover:ring-2 hover:ring-blue-200"
         on:click|preventDefault={handleEditTitle}
       >
         <Pen size={12} />
       </button>
+      <div class="w-[1px] bg-gray-300" />
       <button
         aria-label="ปุ่มลบสินค้า"
         tabindex="-1"
-        class="w-fit rounded-full bg-red-100 p-2 text-red-600 transition-all duration-300 hover:ring-2 hover:ring-red-200"
+        class="w-fit rounded-r-lg border-y border-r border-red-300 bg-red-100 p-2 text-red-600 transition-all duration-300 hover:ring-2 hover:ring-red-200"
         on:click|preventDefault={handleRemove(product.id)}
       >
-        <Minus size={12} />
+        <Trash2 size={12} />
       </button>
     </div>
   </div>
   <form class="grid grid-flow-row grid-cols-4 gap-2 text-sm">
-    <div class="relative col-span-4 mb-5 flex flex-col gap-y-2">
+    <div class="relative col-span-4 flex flex-col gap-y-2">
       <label class="text-xs text-gray-600" for={`price-${product.id}`}
         >ราคา (สุทธิ)
       </label>
       <div class="flex flex-row">
         <input
           aria-label="ช่องกรอก ราคา"
-          class="w-full min-w-0 rounded-l-xl border border-blue-200 p-2 text-base"
+          class="min-w-0 flex-grow rounded-l-lg border border-blue-200 p-2 text-base"
           pattern="\d*"
           inputmode="decimal"
           type="number"
@@ -117,17 +123,16 @@
           on:focus={(e) => e.currentTarget.select()}
         />
         <p
-          class="inline-box h-full rounded-r-xl border-b border-r border-t border-blue-200 p-2 align-middle text-xs leading-5"
+          class="h-full rounded-r-lg border-y border-r border-blue-200 p-2 align-middle text-xs leading-5"
         >
-          บาท
+          <span class="pt-1 text-[10px] text-gray-600">
+            {new Intl.NumberFormat("th-TH", {
+              style: "currency",
+              currency: "THB",
+            }).format(price / quantity)}/ชิ้น
+          </span>
         </p>
       </div>
-      <span class="absolute top-full pt-1 text-[10px] text-gray-400">
-        {new Intl.NumberFormat("th-TH", {
-          style: "currency",
-          currency: "THB",
-        }).format(price / quantity)}/ชิ้น
-      </span>
     </div>
     <div class="col-span-2 flex flex-col gap-y-2">
       <label class="text-xs text-gray-600" for={`vol-${product.id}`}
@@ -177,17 +182,24 @@
       </div>
     </div>
     <p
-      class="col-span-4 text-lg"
+      class="col-span-4 flex flex-row place-items-center text-lg"
       id={`ppu-${product.id}`}
       aria-label="ราคาต่อหน่วย"
     >
+      {#if isMinPPU(product.id)}
+        <span
+          class="mr-2 inline-block rounded-full bg-green-300 p-2 text-green-600"
+        >
+          <Check size={16} />
+        </span>
+      {/if}
       <strong>
         {new Intl.NumberFormat("th-TH", {
           style: "currency",
           currency: "THB",
         }).format(ppu)}
       </strong>
-      <span class="text-sm text-gray-600"> / หน่วย</span>
+      <span class="text-sm text-gray-600">/หน่วย</span>
     </p>
   </form>
 </div>

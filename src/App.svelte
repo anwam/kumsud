@@ -49,7 +49,7 @@
 </script>
 
 <main
-  class="container relative mx-auto flex max-h-[100dvh] max-w-md flex-col gap-2 p-2 lg:max-w-3xl lg:gap-3 lg:p-3"
+  class="container relative mx-auto flex max-h-[100dvh] min-h-0 max-w-md flex-col gap-2 p-2 lg:max-w-3xl lg:gap-3 lg:p-3"
 >
   <div class="mx-1 rounded-xl bg-gray-100 py-1 text-center shadow lg:py-3">
     <h1
@@ -61,7 +61,7 @@
   </div>
   <div
     id="comparators"
-    class="grid touch-auto snap-y snap-mandatory grid-flow-row grid-cols-12 gap-3 overflow-x-auto p-1 lg:gap-4"
+    class="grid min-h-0 touch-auto snap-y snap-mandatory grid-flow-row grid-cols-12 gap-3 overflow-x-auto p-1 lg:gap-4"
   >
     {#each comparators as c (c.id)}
       <Comparator bind:product={c} handleRemove={deleteComparator} {isMinPPU} />
@@ -86,7 +86,7 @@
         <Github size={12} />
       </span>
       <u>anwam</u> built with ❤️ and
-      <a class="text-orange-600" href="https://svelte.dev/">svelte.dev</a>
+      <a class="text-orange-700" href="https://svelte.dev/">svelte.dev</a>
     </a>
     <!-- svelte-ignore missing-declaration -->
     <p
@@ -96,6 +96,7 @@
     </p>
 
     <button
+      aria-label="เพิ่มสินค้า"
       class="ml-auto w-fit self-end rounded-full bg-blue-500 p-2 text-blue-50 transition-all duration-300 hover:ring-2 hover:ring-blue-700"
       on:click={addComparator}
     >
