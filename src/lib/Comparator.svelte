@@ -42,8 +42,8 @@
 
 <div
   transition:fly={{ y: -100, opacity: 0 }}
-  class={`col-span-12 flex min-h-0 snap-start snap-always scroll-my-1 flex-col gap-2 rounded-xl  bg-gray-50 p-2 shadow transition-all duration-300 lg:col-span-6 lg:gap-4 lg:p-4 ${
-    isMinPPU(product.id) ? "to-lime-50 ring-2  ring-lime-200" : ""
+  class={`col-span-12 flex snap-start snap-always scroll-my-1 flex-col gap-2 rounded-xl  bg-gray-50 p-2 shadow transition-all duration-300 lg:col-span-6 lg:gap-4 lg:p-4 ${
+    isMinPPU(product.id) ? "ring-2 ring-lime-200" : ""
   }`}
 >
   <!-- {#if isMinPPU(product.id)} -->
@@ -89,16 +89,16 @@
       <button
         aria-label="ปุ่มแก้ไขชื่อสินค้า"
         tabindex="-1"
-        class="w-fit rounded-l-lg border-y border-l border-blue-300 bg-blue-100 p-2 text-blue-600 transition-all duration-300 hover:ring-2 hover:ring-blue-200"
+        class="w-fit rounded-l-lg border-y border-l p-2 text-blue-600 transition-all duration-200 hover:bg-blue-200"
         on:click|preventDefault={handleEditTitle}
       >
         <Pen size={12} />
       </button>
-      <div class="w-[1px] bg-gray-300" />
+      <div class="w-[1px] bg-gray-200" />
       <button
         aria-label="ปุ่มลบสินค้า"
         tabindex="-1"
-        class="w-fit rounded-r-lg border-y border-r border-red-300 bg-red-100 p-2 text-red-600 transition-all duration-300 hover:ring-2 hover:ring-red-200"
+        class="w-fit rounded-r-lg border-y border-r p-2 text-red-600 transition-all duration-200 hover:bg-red-200"
         on:click|preventDefault={handleRemove(product.id)}
       >
         <Trash2 size={12} />
@@ -113,7 +113,7 @@
       <div class="flex flex-row">
         <input
           aria-label="ช่องกรอก ราคา"
-          class="min-w-0 flex-grow rounded-l-lg border border-blue-200 p-2 text-base"
+          class="min-w-0 flex-grow rounded-l-lg rounded-r-none border border-blue-200 p-2 text-base"
           pattern="\d*"
           inputmode="decimal"
           type="number"
@@ -123,14 +123,12 @@
           on:focus={(e) => e.currentTarget.select()}
         />
         <p
-          class="h-full rounded-r-lg border-y border-r border-blue-200 p-2 align-middle text-xs leading-5"
+          class="h-full rounded-l-none rounded-r-lg border-y border-r border-blue-200 p-2 text-[9px] leading-6 text-gray-500"
         >
-          <span class="pt-1 text-[10px] text-gray-600">
-            {new Intl.NumberFormat("th-TH", {
-              style: "currency",
-              currency: "THB",
-            }).format(price / quantity)}/ชิ้น
-          </span>
+          {new Intl.NumberFormat("th-TH", {
+            style: "currency",
+            currency: "THB",
+          }).format(price / quantity)}/ชิ้น
         </p>
       </div>
     </div>
@@ -140,7 +138,7 @@
       >
       <input
         aria-label="ช่องกรอก ปริมาตร"
-        class="w-full rounded-xl border border-yellow-400 p-2 text-end text-base"
+        class="w-full rounded-xl border border-blue-200 p-2 text-end text-base"
         on:focus={(e) => e.currentTarget.select()}
         pattern="\d*"
         inputmode="decimal"
@@ -158,13 +156,13 @@
         <button
           aria-label="ลดจำนวน"
           on:click|preventDefault={decrease}
-          class="box-border rounded-l-xl border border-lime-400 px-3 text-lime-600 hover:bg-lime-100"
+          class="box-border rounded-l-xl border border-lime-400 px-3 text-lime-600 hover:bg-lime-50"
         >
           <Minus size={12} />
         </button>
         <input
           aria-label="จำนวน"
-          class="min-w-0 border-y border-lime-400 p-2 text-end text-base"
+          class="min-w-0 rounded-none border-y border-lime-400 p-2 text-end text-base"
           on:focus={(e) => e.currentTarget.select()}
           pattern="\d*"
           type="number"
@@ -175,7 +173,7 @@
         <button
           aria-label="เพิ่มจำนวน"
           on:click|preventDefault={increase}
-          class="box-border rounded-r-xl border border-lime-400 px-3 text-lime-600 hover:bg-lime-100"
+          class="box-border rounded-r-xl border border-lime-400 px-3 text-lime-600 hover:bg-lime-50"
         >
           <Plus size={12} />
         </button>

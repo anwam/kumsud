@@ -61,7 +61,7 @@
   </div>
   <div
     id="comparators"
-    class="grid min-h-0 touch-auto snap-y snap-mandatory grid-flow-row grid-cols-12 gap-3 overflow-x-auto p-1 lg:gap-4"
+    class="grid touch-auto snap-y snap-mandatory grid-flow-row grid-cols-12 gap-3 overflow-x-auto p-1 lg:gap-4"
   >
     {#each comparators as c (c.id)}
       <Comparator bind:product={c} handleRemove={deleteComparator} {isMinPPU} />
