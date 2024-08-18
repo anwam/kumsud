@@ -1,11 +1,10 @@
 <script>
-  import {
-    Check,
-    Minus,
-    Pen,
-    Plus,
-    Trash2,
-  } from 'lucide-svelte'
+  import Check from 'lucide-svelte/icons/check'
+  import Minus from 'lucide-svelte/icons/minus'
+  import Pen from 'lucide-svelte/icons/pen'
+  import Plus from 'lucide-svelte/icons/plus'
+  import Trash2 from 'lucide-svelte/icons/trash-2'
+
   import { fly } from 'svelte/transition'
 
   let price = 0
@@ -39,7 +38,7 @@
 
 <div
   transition:fly={{ y: -100, opacity: 0 }}
-  class={`col-span-12 flex snap-start snap-always scroll-my-1 flex-col gap-2 rounded-xl  bg-gray-50 p-2 shadow transition-all duration-300 lg:col-span-6 lg:gap-4 lg:p-4 ${
+  class={`col-span-12 flex snap-start snap-always scroll-my-1 flex-col gap-2 rounded-xl bg-gray-50 p-2 shadow transition-all duration-100 lg:col-span-6 lg:gap-4 lg:p-4 ${
     isMinPPU(product.id) ? 'ring-2 ring-lime-200' : ''
   }`}
 >
@@ -119,6 +118,7 @@
           id={`price-${product.id}`}
           bind:value={price}
           on:focus={e => e.currentTarget.select()}
+          on:contextmenu|preventDefault
         />
         <p
           class='h-full rounded-l-none rounded-r-lg border-y border-r border-blue-200 p-2 text-[9px] leading-6 text-gray-500'
@@ -132,12 +132,13 @@
     </div>
     <div class='flex flex-col col-span-2 gap-y-2'>
       <label class='text-xs text-gray-600' for={`vol-${product.id}`}
-      >ปริมาตร</label
+      >ปริมาณ</label
       >
       <input
-        aria-label='ช่องกรอก ปริมาตร'
+        aria-label='ช่องกรอก ปริมาณ'
         class='w-full p-2 text-base border border-blue-200 rounded-xl text-end'
-        on:focus={e => e.currentTarget.select()}
+        on:focus|preventDefault={e => e.currentTarget.select()}
+        on:contextmenu|preventDefault
         pattern='\d*'
         inputmode='decimal'
         type='number'
@@ -154,26 +155,27 @@
         <button
           type='button'
           aria-label='ลดจำนวน'
+          class='box-border px-3 border-l border-y rounded-l-xl border-lime-400 text-lime-600 hover:bg-lime-50'
           on:click|preventDefault={decrease}
-          class='box-border px-3 border rounded-l-xl border-lime-400 text-lime-600 hover:bg-lime-50'
         >
           <Minus size={12} />
         </button>
         <input
+          id={`quant-${product.id}`}
           aria-label='จำนวน'
-          class='min-w-0 p-2 text-base rounded-none border-y border-x-0 border-lime-400 text-end'
-          on:focus={e => e.currentTarget.select()}
+          class='min-w-0 p-2 text-base rounded-none border-y border-x border-lime-400 text-end'
           pattern='\d*'
           type='number'
           name='quant'
-          id={`quant-${product.id}`}
+          on:focus={e => e.currentTarget.select()}
+          on:contextmenu|preventDefault
           bind:value={quantity}
         />
         <button
           type='button'
           aria-label='เพิ่มจำนวน'
           on:click|preventDefault={increase}
-          class='box-border px-3 border rounded-r-xl border-lime-400 text-lime-600 hover:bg-lime-50'
+          class='box-border px-3 border-r border-y rounded-r-xl border-lime-400 text-lime-600 hover:bg-lime-50'
         >
           <Plus size={12} />
         </button>

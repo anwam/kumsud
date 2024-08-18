@@ -40,9 +40,9 @@
 </script>
 
 <main
-  class='container relative mx-auto flex max-h-[100dvh] min-h-0 max-w-md flex-col gap-2 p-2 lg:max-w-3xl lg:gap-3 lg:p-3'
+  class='container relative mx-auto flex max-h-[100dvh] min-h-0 max-w-md flex-col gap-1 md:gap-2 p-1 md:p-2 lg:max-w-3xl lg:gap-3 lg:p-3'
 >
-  <div class='py-1 mx-1 text-center bg-gray-100 shadow rounded-xl lg:py-3'>
+  <div class='py-3 text-center bg-gray-100 shadow rounded-xl'>
     <h1
       class='text-xl font-extrabold text-center text-transparent title bg-gradient-to-b from-red-700 to-pink-400 bg-clip-text lg:text-3xl'
     >
@@ -52,7 +52,7 @@
   </div>
   <div
     id='comparators'
-    class='grid grid-flow-row grid-cols-12 gap-3 p-1 overflow-x-auto touch-auto snap-y snap-mandatory lg:gap-4'
+    class='grid grid-flow-row grid-cols-12 gap-1 overflow-x-auto md:gap-3 touch-auto snap-y snap-mandatory lg:gap-4'
   >
     {#each comparators as c (c.id)}
       <Comparator bind:product={c} handleRemove={deleteComparator} {isMinPPU} />
