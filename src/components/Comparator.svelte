@@ -14,7 +14,7 @@
   let quantity = $state(1)
   let isEditTitle = $state(false)
 
-  let ppu = $derived(price / (vol * quantity))
+  const ppu = $derived(price / (vol * quantity))
 
   $effect(() => {
     product.ppu = ppu
@@ -114,7 +114,7 @@
       >
         <Pen size={12} />
       </button>
-      <div class='w-[1px] bg-gray-200'></div>
+      <div class='w-px bg-gray-200'></div>
       <button
         type='button'
         aria-label='ปุ่มลบสินค้า'
@@ -137,7 +137,7 @@
       <div class='flex flex-row'>
         <input
           aria-label='ช่องกรอก ราคา'
-          class='flex-grow min-w-0 p-2 text-base border border-blue-200 rounded-l-lg rounded-r-none'
+          class='grow min-w-0 p-2 text-base border border-blue-200 rounded-l-lg rounded-r-none'
           pattern='\d*'
           inputmode='decimal'
           type='number'

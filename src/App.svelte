@@ -29,7 +29,7 @@
     }
   }
 
-  let maxPPU = $derived(
+  const maxPPU = $derived(
     comparators.find(
       c => c.ppu === Math.min(...comparators.map(c => c.ppu)),
     ),
@@ -42,11 +42,11 @@
 </script>
 
 <main
-  class='container relative mx-auto flex max-h-[100dvh] min-h-0 max-w-md flex-col gap-1 md:gap-2 p-1 md:p-2 lg:max-w-3xl lg:gap-3 lg:p-3'
+  class='container relative mx-auto flex max-h-dvh min-h-0 max-w-md flex-col gap-1 md:gap-2 p-1 md:p-2 lg:max-w-3xl lg:gap-3 lg:p-3'
 >
   <div class='py-3 text-center bg-gray-100 shadow rounded-xl'>
     <h1
-      class='text-xl font-extrabold text-center text-transparent title bg-gradient-to-b from-red-700 to-pink-400 bg-clip-text lg:text-3xl'
+      class='text-xl font-extrabold text-center text-transparent title bg-linear-to-b from-red-700 to-pink-400 bg-clip-text lg:text-3xl'
     >
       KUM SUD - คุ้มสุด
     </h1>
