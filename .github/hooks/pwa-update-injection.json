@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "type": "command",
+        "command": ".github/hooks/scripts/pwa-update-detection.sh",
+        "cwd": "${workspaceFolder}",
+        "timeout": 5
+      }
+    ]
+  }
+}
