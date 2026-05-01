@@ -4,10 +4,76 @@
   import Plus from 'lucide-svelte/icons/plus'
   import Comparator from './components/Comparator.svelte'
 
-  let comparators = $state([
-    { id: 1, ppu: 0, title: '' },
-    { id: 2, ppu: 0, title: '' },
-  ])
+  const STORAGE_KEY = 'kumsud:comparators'
+
+  /** @param {number} id */
+  const createComparator = id => ({
+    id,
+    title: '',
+    ppu: 0,
+    price: 0,
+    vol: 1,
+    quantity: 1,
+    promoEnabled: false,
+    promoType: 'none',
+    percentOff: 0,
+    fixedOff: 0,
+    buyQty: 1,
+    getQty: 1,
+  })
+
+  const defaultComparators = [createComparator(1), createComparator(2)]
+
+  /** @param {Record<string, any>} raw */
+  const normalizeComparator = raw => ({
+    ...createComparator(Number(raw?.id) > 0 ? Number(raw.id) : 1),
+    ...raw,
+    id: Number(raw?.id) > 0 ? Number(raw.id) : 1,
+    title: typeof raw?.title === 'string' ? raw.title : '',
+    ppu: Number.isFinite(Number(raw?.ppu)) ? Number(raw.ppu) : 0,
+    price: Number.isFinite(Number(raw?.price)) ? Number(raw.price) : 0,
+    vol: Number(raw?.vol) > 0 ? Number(raw.vol) : 1,
+    quantity: Number(raw?.quantity) > 0 ? Number(raw.quantity) : 1,
+    promoEnabled: Boolean(raw?.promoEnabled),
+    promoType: typeof raw?.promoType === 'string' ? raw.promoType : 'none',
+    percentOff: Number.isFinite(Number(raw?.percentOff)) ? Number(raw.percentOff) : 0,
+    fixedOff: Number.isFinite(Number(raw?.fixedOff)) ? Number(raw.fixedOff) : 0,
+    buyQty: Number(raw?.buyQty) > 0 ? Number(raw.buyQty) : 1,
+    getQty: Number(raw?.getQty) > 0 ? Number(raw.getQty) : 1,
+  })
+
+  const loadComparators = () => {
+    if (typeof localStorage === 'undefined') {
+      return defaultComparators
+    }
+
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY)
+      if (!raw) {
+        return defaultComparators
+      }
+
+      const parsed = JSON.parse(raw)
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        return defaultComparators
+      }
+
+      return parsed.map(c => normalizeComparator(c))
+    }
+    catch {
+      return defaultComparators
+    }
+  }
+
+  let comparators = $state(loadComparators())
+
+  $effect(() => {
+    if (typeof localStorage === 'undefined') {
+      return
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(comparators))
+  })
 
   const addComparator = () => {
     comparators = [
@@ -17,8 +83,11 @@
           comparators.length > 0
             ? comparators[comparators.length - 1].id + 1
             : 1,
-        ppu: 0,
-        title: '',
+        ...createComparator(
+          comparators.length > 0
+            ? comparators[comparators.length - 1].id + 1
+            : 1,
+        ),
       },
     ]
   }
@@ -29,15 +98,19 @@
     }
   }
 
-  const maxPPU = $derived(
-    comparators.find(
-      c => c.ppu === Math.min(...comparators.map(c => c.ppu)),
-    ),
-  )
+  const maxPPU = $derived.by(() => {
+    const positive = comparators.filter(c => Number(c.ppu) > 0)
+    if (positive.length === 0) {
+      return null
+    }
+
+    const minPPU = Math.min(...positive.map(c => Number(c.ppu)))
+    return positive.find(c => Number(c.ppu) === minPPU) ?? null
+  })
 
   /** @param {number} id */
   const isMinPPU = (id) => {
-    return id === maxPPU.id && maxPPU.ppu > 0
+    return maxPPU !== null && id === maxPPU.id && maxPPU.ppu > 0
   }
 </script>
 
