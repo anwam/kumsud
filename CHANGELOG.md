@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.0.1](https://github.com/anwam/kumsud/compare/v0.2.2...v1.0.1) (2026-05-01)
+
 ## [0.2.2](https://github.com-anwam/anwam/kumsud/compare/v0.2.1...v0.2.2) (2024-08-18)
 
 ## 0.2.1 (2024-08-18)

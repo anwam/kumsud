@@ -1,7 +1,7 @@
 {
   "name": "comparator",
   "type": "module",
-  "version": "0.2.2",
+  "version": "1.0.1",
   "private": true,
   "scripts": {
     "dev": "vite",
