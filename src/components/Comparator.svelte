@@ -7,16 +7,18 @@
 
   import { fly } from 'svelte/transition'
 
-  let price = 0
-  let vol = 1
-  let quantity = 1
-  let isEditTitle = false
-  export let product
-  export let handleRemove
-  export let isMinPPU
+  let { product = $bindable(), handleRemove, isMinPPU } = $props()
 
-  $: ppu = price / (vol * quantity)
-  $: product = { ...product, ppu }
+  let price = $state(0)
+  let vol = $state(1)
+  let quantity = $state(1)
+  let isEditTitle = $state(false)
+
+  let ppu = $derived(price / (vol * quantity))
+
+  $effect(() => {
+    product.ppu = ppu
+  })
 
   const handleEditTitle = () => {
     isEditTitle = !isEditTitle
@@ -53,22 +55,44 @@
           placeholder='ชื่อสินค้า'
           class='px-2 py-0.5 text-base text-blue-700 border border-blue-200 rounded w-fit placeholder:text-sm placeholder:text-blue-200'
           bind:value={product.title}
-          on:keypress={(/** @type {KeyboardEvent} */ e) => {
+          onkeypress={(/** @type {KeyboardEvent} */ e) => {
             if (e.key === 'Enter') {
               handleEditTitle()
             }
           }}
           use:autoFocus
         />
-        <button type='button' class='p-1.5 text-green-600 transition-all duration-200 border rounded w-fit hover:bg-blue-200' on:click|preventDefault={handleEditTitle}>
+        <button
+          type='button'
+          class='p-1.5 text-green-600 transition-all duration-200 border rounded w-fit hover:bg-blue-200'
+          onclick={(e) => {
+            e.preventDefault()
+            handleEditTitle()
+          }}
+        >
           <Check size={12} />
         </button>
       {:else if product.title !== ''}
-        <span aria-label='ชื่อสินค้า' tabindex={-1} role='textbox' on:dblclick|preventDefault={handleEditTitle}>
+        <span
+          aria-label='ชื่อสินค้า'
+          tabindex={-1}
+          role='textbox'
+          ondblclick={(e) => {
+            e.preventDefault()
+            handleEditTitle()
+          }}
+        >
           {product.title}
         </span>
       {:else}
-        <span tabindex={-1} role='textbox' on:dblclick|preventDefault={handleEditTitle}>
+        <span
+          tabindex={-1}
+          role='textbox'
+          ondblclick={(e) => {
+            e.preventDefault()
+            handleEditTitle()
+          }}
+        >
           {`# ${product.id}`}
           {#if isMinPPU(product.id)}
             <span>คุ้มกว่า</span>
@@ -83,17 +107,23 @@
         aria-label='ปุ่มแก้ไขชื่อสินค้า'
         tabindex='-1'
         class='p-2 text-blue-600 transition-all duration-200 border-l rounded-l-lg w-fit border-y hover:bg-blue-200'
-        on:click|preventDefault={handleEditTitle}
+        onclick={(e) => {
+          e.preventDefault()
+          handleEditTitle()
+        }}
       >
         <Pen size={12} />
       </button>
-      <div class='w-[1px] bg-gray-200' />
+      <div class='w-[1px] bg-gray-200'></div>
       <button
         type='button'
         aria-label='ปุ่มลบสินค้า'
         tabindex='-1'
         class='p-2 text-red-600 transition-all duration-200 border-r rounded-r-lg w-fit border-y hover:bg-red-200'
-        on:click|preventDefault={handleRemove(product.id)}
+        onclick={(e) => {
+          e.preventDefault()
+          handleRemove(product.id)()
+        }}
       >
         <Trash2 size={12} />
       </button>
@@ -101,10 +131,7 @@
   </div>
   <form class='grid grid-flow-row grid-cols-4 gap-2 text-sm'>
     <div class='relative flex flex-col col-span-4 gap-y-2'>
-      <label
-        class='text-xs text-gray-600'
-        for={`price-${product.id}`}
-      >
+      <label class='text-xs text-gray-600' for={`price-${product.id}`}>
         ราคา (สุทธิ)
       </label>
       <div class='flex flex-row'>
@@ -117,8 +144,8 @@
           name='price'
           id={`price-${product.id}`}
           bind:value={price}
-          on:focus={e => e.currentTarget.select()}
-          on:contextmenu|preventDefault
+          onfocus={e => e.currentTarget.select()}
+          oncontextmenu={e => e.preventDefault()}
         />
         <p
           class='h-full rounded-l-none rounded-r-lg border-y border-r border-blue-200 p-2 text-[9px] leading-6 text-gray-500'
@@ -137,8 +164,11 @@
       <input
         aria-label='ช่องกรอก ปริมาณ'
         class='w-full p-2 text-base border border-blue-200 rounded-xl text-end'
-        on:focus|preventDefault={e => e.currentTarget.select()}
-        on:contextmenu|preventDefault
+        onfocus={(e) => {
+          e.preventDefault()
+          e.currentTarget.select()
+        }}
+        oncontextmenu={e => e.preventDefault()}
         pattern='\d*'
         inputmode='decimal'
         type='number'
@@ -156,7 +186,10 @@
           type='button'
           aria-label='ลดจำนวน'
           class='box-border px-3 border-l border-y rounded-l-xl border-lime-400 text-lime-600 hover:bg-lime-50'
-          on:click|preventDefault={decrease}
+          onclick={(e) => {
+            e.preventDefault()
+            decrease()
+          }}
         >
           <Minus size={12} />
         </button>
@@ -167,14 +200,17 @@
           pattern='\d*'
           type='number'
           name='quant'
-          on:focus={e => e.currentTarget.select()}
-          on:contextmenu|preventDefault
+          onfocus={e => e.currentTarget.select()}
+          oncontextmenu={e => e.preventDefault()}
           bind:value={quantity}
         />
         <button
           type='button'
           aria-label='เพิ่มจำนวน'
-          on:click|preventDefault={increase}
+          onclick={(e) => {
+            e.preventDefault()
+            increase()
+          }}
           class='box-border px-3 border-r border-y rounded-r-xl border-lime-400 text-lime-600 hover:bg-lime-50'
         >
           <Plus size={12} />

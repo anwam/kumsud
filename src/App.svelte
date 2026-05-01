@@ -1,12 +1,13 @@
 <script>
   // import html2canvas from "html2canvas";
-  import { Github, Plus } from 'lucide-svelte'
+  import GitBranch from 'lucide-svelte/icons/git-branch'
+  import Plus from 'lucide-svelte/icons/plus'
   import Comparator from './components/Comparator.svelte'
 
-  let comparators = [
+  let comparators = $state([
     { id: 1, ppu: 0, title: '' },
     { id: 2, ppu: 0, title: '' },
-  ]
+  ])
 
   const addComparator = () => {
     comparators = [
@@ -28,15 +29,16 @@
     }
   }
 
-  $: maxPPU = comparators.find(
-    c => c.ppu === Math.min(...comparators.map(c => c.ppu)),
+  let maxPPU = $derived(
+    comparators.find(
+      c => c.ppu === Math.min(...comparators.map(c => c.ppu)),
+    ),
   )
 
   /** @param {number} id */
   const isMinPPU = (id) => {
     return id === maxPPU.id && maxPPU.ppu > 0
   }
-
 </script>
 
 <main
@@ -54,25 +56,35 @@
     id='comparators'
     class='grid grid-flow-row grid-cols-12 gap-1 overflow-x-auto md:gap-3 touch-auto snap-y snap-mandatory lg:gap-4'
   >
-    {#each comparators as c (c.id)}
-      <Comparator bind:product={c} handleRemove={deleteComparator} {isMinPPU} />
+    {#each comparators as c, i (c.id)}
+      <Comparator
+        bind:product={comparators[i]}
+        handleRemove={deleteComparator}
+        {isMinPPU}
+      />
     {/each}
   </div>
 
   <div
     class='flex flex-row col-span-12 text-sm text-center place-items-center gap-x-1 text-gray-50'
   >
-    <a
-      href='https://github.com/anwam'
+    <div
       class='box-border flex flex-row gap-1 py-1 pl-1 pr-2 text-center text-gray-600 bg-gray-100 rounded-full shadow w-fit place-items-center place-self-center'
     >
-      <span class='block p-1 bg-gray-700 rounded-full h-fit w-fit text-gray-50'>
-        <Github size={12} />
-      </span>
-      <u>anwam</u> built with ❤️ and
+      <a
+        href='https://github.com/anwam'
+        class='flex flex-row gap-1 place-items-center'
+      >
+        <span
+          class='block p-1 bg-gray-700 rounded-full h-fit w-fit text-gray-50'
+        >
+          <GitBranch size={12} />
+        </span>
+        <u>anwam</u>
+      </a>
+      built with ❤️ and
       <a class='text-orange-700' href='https://svelte.dev/'>svelte.dev</a>
-    </a>
-    <!-- svelte-ignore missing-declaration -->
+    </div>
     <p
       class='box-border px-2 py-1 text-gray-600 bg-gray-100 rounded-full shadow'
     >
@@ -82,7 +94,7 @@
     <button
       aria-label='เพิ่มสินค้า'
       class='self-end p-2 ml-auto transition-all duration-300 bg-blue-500 rounded-full w-fit text-blue-50 hover:ring-2 hover:ring-blue-700'
-      on:click={addComparator}
+      onclick={addComparator}
     >
       <Plus size={18} />
     </button>
