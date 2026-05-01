@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [1.1.0](https://github.com/anwam/kumsud/compare/v1.0.1...v1.1.0) (2026-05-01)
+
+
+### Features
+
+* **pwa:** add PWA update detection and validation scripts ([9811c1b](https://github.com/anwam/kumsud/commit/9811c1bb7e31cf2371b841379fb17e0fd18ad8e1))
+* **pwa:** implement service worker for caching and offline support ([33fe03a](https://github.com/anwam/kumsud/commit/33fe03a7c2884be489dd5c334a5eb56393742b98))
+
 ## [1.0.1](https://github.com/anwam/kumsud/compare/v0.2.2...v1.0.1) (2026-05-01)
 
 ## [0.2.2](https://github.com-anwam/anwam/kumsud/compare/v0.2.1...v0.2.2) (2024-08-18)
